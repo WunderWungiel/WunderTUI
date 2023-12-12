@@ -13,11 +13,16 @@ def get_key():
             ch = sys.stdin.read(1)
         
             if ch == '\x1b':
+                print("xd", ch)
                 ch2 = sys.stdin.read(2)
                 if ch2 == "[A":
                     return "up"
                 elif ch2 == '[B':
                     return "down"
+                elif ch2 == '[D':
+                    return "left"
+                elif ch2 == '[C':
+                    return "right"
                 elif ch2 == '[F':
                     return "end"
                 elif ch2 == '[H':
