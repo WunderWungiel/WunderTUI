@@ -2,6 +2,24 @@ import sys
 import termios
 import tty
 import re
+import keyboard
+
+bg_colors = {
+    "cyan": '\033[48;5;104m',
+    'pink': '\033[48;5;169m'
+}
+
+colors = {
+    'default': '',
+    'bold': '\033[96m',
+    'red': '\033[31m',
+    'green': '\033[32m',
+    'blink': '\033[5m',
+    'yellow': '\033[33m',
+    'cyan': '\033[1;36m'
+}
+
+reset = '\033[0m'
 
 def get_key():
     fd = sys.stdin.fileno()
@@ -13,7 +31,6 @@ def get_key():
             ch = sys.stdin.read(1)
         
             if ch == '\x1b':
-                print("xd", ch)
                 ch2 = sys.stdin.read(2)
                 if ch2 == "[A":
                     return "up"
@@ -31,8 +48,8 @@ def get_key():
                 raise KeyboardInterrupt
             elif ch == "\r":
                 return "enter"
-            elif ch.isnumeric():
-                return ch
+            elif ch == " ":
+                return "space"
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
